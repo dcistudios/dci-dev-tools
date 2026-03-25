@@ -19,6 +19,8 @@
 This project is Docker-ready and optimized for **Coolify** or standard VPS environments.
 
 ```bash
+# Build the image
 docker build -t dci-dev-tools .
-docker run -p 3000:3000 dci-dev-tools```
-**© 2026 DCI Studios — Architecting Excellence.**
+
+# Run the container
+docker run -p 3000:3000 dci-dev-tools
