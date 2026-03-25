@@ -1,6 +1,6 @@
 # 🛠️ DCI Dev Tools
 
-> Part of the [DCI Studios](https://github.com/DCI-Studios) Public Release Initiative.
+> Part of the [DCI Studios](https://github.com/dcistudios) Public Release Initiative.
 
 **DCI Dev Tools** is a high-performance, web-based utility suite designed for developers who need fast, client-side tools without the overhead. Built on the DCI "private-first" philosophy—now optimized for the public.
 
