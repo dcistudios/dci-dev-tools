@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4a92e1?style=flat-square">
   </a>
   <a href="https://discord.gg/hbeSGytT9d">
-    <img src="https://img.shields.io/discord/1294585467462746292?style=flat-square&color=4a92e1&label=discord" alt="Join our Discord">
+    <img src="https://img.shields.io/discord/1475197218674970788flat-square&color=4a92e1&label=discord" alt="Join our Discord">
   </a>
 </p>
 
