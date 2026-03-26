@@ -1,185 +1,94 @@
-/**
- * DCI Dev Tools - Core Logic
- * Private-first, client-side utility suite.
- */
-
 const tools = {
     'json-format': {
         title: 'JSON Suite',
-        html: `<textarea id="input" placeholder="Paste messy JSON here..."></textarea>
+        html: `<textarea id="input" placeholder="Paste JSON here..."></textarea>
                <div class="actions">
-                   <button onclick="runTool('json-format')">Beautify</button>
-                   <button onclick="runTool('json-minify')">Minify</button>
+                   <button class="btn-action" onclick="runTool('json-format')">Beautify</button>
+                   <button class="btn-action" onclick="runTool('json-minify')">Minify</button>
                </div>`
     },
     'jwt-inspect': {
         title: 'JWT Debugger',
-        html: `<textarea id="input" placeholder="Paste JWT (header.payload.signature)"></textarea>
+        html: `<textarea id="input" placeholder="Paste JWT token..."></textarea>
                <div class="actions">
-                   <button onclick="runTool('jwt-decode')">Decode Payload</button>
+                   <button class="btn-action" onclick="runTool('jwt-decode')">Decode</button>
                </div>`
     },
     'base64': {
-        title: 'Base64 Converter',
-        html: `<textarea id="input" placeholder="Text to Encode/Decode..."></textarea>
+        title: 'Base64',
+        html: `<textarea id="input" placeholder="Text..."></textarea>
                <div class="actions">
-                   <button onclick="runTool('b64-encode')">Encode</button>
-                   <button onclick="runTool('b64-decode')">Decode</button>
-               </div>`
-    },
-    'url-suite': {
-        title: 'URL Tools',
-        html: `<input type="text" id="input" placeholder="https://example.com?query=test">
-               <div class="actions">
-                   <button onclick="runTool('url-parse')">Parse Params</button>
-                   <button onclick="runTool('url-encode')">URL Encode</button>
-                   <button onclick="runTool('url-decode')">URL Decode</button>
+                   <button class="btn-action" onclick="runTool('b64-encode')">Encode</button>
+                   <button class="btn-action" onclick="runTool('b64-decode')">Decode</button>
                </div>`
     },
     'hash': {
-        title: 'SHA-256 Hasher',
-        html: `<input type="text" id="input" placeholder="Enter string...">
-               <div class="actions">
-                   <button onclick="runTool('hash-256')">Generate Hash</button>
-               </div>`
-    },
-    'text-utils': {
-        title: 'Text Analyzer',
-        html: `<textarea id="input" placeholder="Type or paste text..."></textarea>
-               <div class="actions">
-                   <button onclick="runTool('text-stats')">Get Stats</button>
-                   <button onclick="runTool('text-upper')">UPPERCASE</button>
-                   <button onclick="runTool('text-lower')">lowercase</button>
-               </div>`
+        title: 'SHA-256',
+        html: `<input type="text" id="input" placeholder="String...">
+               <button class="btn-action" onclick="runTool('hash-256')">Hash</button>`
     },
     'uuid': {
-        title: 'UUID Generator',
-        html: `<div class="actions">
-                   <button onclick="runTool('gen-uuid')">Generate Version 4 UUID</button>
-               </div>`
+        title: 'UUID Gen',
+        html: `<button class="btn-action" onclick="runTool('gen-uuid')">Generate UUID V4</button>`
     }
 };
 
-const container = document.getElementById('tool-container');
-const outputHeader = `
-    <div class="output-container">
-        <div class="output-header">
-            <h3>Output</h3>
-            <button class="copy-btn" onclick="copyOutput()">Copy</button>
-        </div>
-        <pre id="output"></pre>
-    </div>`;
-
-/**
- * Initializes the sidebar and loads the default tool
- */
 function init() {
+    const container = document.getElementById('tool-container');
     let menuHtml = '<div class="menu">';
     for (const key in tools) {
-        menuHtml += `<button class="menu-btn" onclick="loadTool('${key}')">${tools[key].title}</button>`;
+        menuHtml += `<button class="menu-btn" id="btn-${key}" onclick="loadTool('${key}')">${tools[key].title}</button>`;
     }
-    menuHtml += '</div><div id="active-tool"></div>';
+    menuHtml += '</div><div class="workspace" id="active-tool"></div>';
     container.innerHTML = menuHtml;
     loadTool('json-format');
+    initParticles();
 }
 
-/**
- * Renders the selected tool interface
- */
 function loadTool(key) {
     const tool = tools[key];
-    const activeArea = document.getElementById('active-tool');
-    activeArea.innerHTML = `
-        <h2>${tool.title}</h2>
+    document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`btn-${key}`).classList.add('active');
+    document.getElementById('active-tool').innerHTML = `
+        <h2 style="margin-bottom:1rem; font-family:'Space Grotesk'">${tool.title}</h2>
         ${tool.html}
-        ${outputHeader}
+        <h3 style="margin: 1.5rem 0 0.5rem; font-size:0.7rem; color:var(--text-dim); text-transform:uppercase;">Output</h3>
+        <pre id="output">_</pre>
     `;
-    
-    // UI Polish: Update active state on buttons
-    document.querySelectorAll('.menu-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.innerText === tool.title);
-    });
 }
 
-/**
- * Core execution logic for all tools
- */
 async function runTool(action) {
     const input = document.getElementById('input')?.value || '';
     const out = document.getElementById('output');
-    
     try {
         switch(action) {
-            case 'json-format':
-                out.textContent = JSON.stringify(JSON.parse(input), null, 4);
-                break;
-            case 'json-minify':
-                out.textContent = JSON.stringify(JSON.parse(input));
-                break;
-            case 'jwt-decode':
-                const payload = input.split('.')[1];
-                out.textContent = JSON.stringify(JSON.parse(atob(payload)), null, 4);
-                break;
-            case 'b64-encode':
-                out.textContent = btoa(input);
-                break;
-            case 'b64-decode':
-                out.textContent = atob(input);
-                break;
-            case 'url-parse':
-                const url = new URL(input);
-                out.textContent = JSON.stringify({
-                    protocol: url.protocol,
-                    host: url.host,
-                    pathname: url.pathname,
-                    params: Object.fromEntries(url.searchParams)
-                }, null, 4);
-                break;
-            case 'url-encode':
-                out.textContent = encodeURIComponent(input);
-                break;
-            case 'url-decode':
-                out.textContent = decodeURIComponent(input);
-                break;
+            case 'json-format': out.textContent = JSON.stringify(JSON.parse(input), null, 4); break;
+            case 'json-minify': out.textContent = JSON.stringify(JSON.parse(input)); break;
+            case 'jwt-decode': out.textContent = JSON.stringify(JSON.parse(atob(input.split('.')[1])), null, 4); break;
+            case 'b64-encode': out.textContent = btoa(input); break;
+            case 'b64-decode': out.textContent = atob(input); break;
             case 'hash-256':
-                const msgBuffer = new TextEncoder().encode(input);
-                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-                out.textContent = Array.from(new Uint8Array(hashBuffer))
-                    .map(b => b.toString(16).padStart(2, '0'))
-                    .join('');
+                const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+                out.textContent = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
                 break;
-            case 'text-stats':
-                const words = input.trim() ? input.trim().split(/\s+/).length : 0;
-                out.textContent = `Characters: ${input.length}\nWords: ${words}\nLines: ${input.split('\n').length}`;
-                break;
-            case 'text-upper':
-                out.textContent = input.toUpperCase();
-                break;
-            case 'text-lower':
-                out.textContent = input.toLowerCase();
-                break;
-            case 'gen-uuid':
-                out.textContent = crypto.randomUUID();
-                break;
+            case 'gen-uuid': out.textContent = crypto.randomUUID(); break;
         }
-    } catch (e) {
-        out.textContent = "Error: " + e.message;
-    }
+    } catch (e) { out.textContent = "Error: " + e.message; }
 }
 
-/**
- * Utility to copy output to clipboard
- */
-function copyOutput() {
-    const text = document.getElementById('output').textContent;
-    if (text) {
-        navigator.clipboard.writeText(text);
-        const btn = document.querySelector('.copy-btn');
-        const originalText = btn.innerText;
-        btn.innerText = 'Copied!';
-        setTimeout(() => btn.innerText = originalText, 2000);
+function initParticles() {
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    window.onresize = resize; resize();
+    class P {
+        constructor() { this.x = Math.random()*canvas.width; this.y = Math.random()*canvas.height; this.vX = (Math.random()-0.5)*0.2; this.vY = (Math.random()-0.5)*0.2; this.s = Math.random()*1.5; }
+        draw() { ctx.fillStyle = 'rgba(56, 189, 248, 0.2)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); this.x+=this.vX; this.y+=this.vY; if(this.x<0||this.x>canvas.width) this.x=0; if(this.y<0||this.y>canvas.height) this.y=0; }
     }
+    for(let i=0; i<70; i++) particles.push(new P());
+    const anim = () => { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>p.draw()); requestAnimationFrame(anim); };
+    anim();
 }
 
-// Start the app
 init();
