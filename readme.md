@@ -16,5 +16,6 @@
 * **Runtime:** Docker / NVMe-optimized images
 
 ## 📦 Deployment
-This project is Docker-ready and optimized for **Coolify** or standard VPS 
+This project is Docker-ready and optimized for **Coolify** or standard VPS.
+
 **Tutorial coming very soon.**
