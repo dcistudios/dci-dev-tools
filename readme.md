@@ -1,7 +1,7 @@
 # 🛠️ DCI Dev Tools
 
 <p align="left">
-  <a href="https://github.com/robalyx/rotector/blob/main/LICENSE">
+  <a href="https://github.com/dcistudios/dci-dev-tools/blob/main/LICENSE.md">
     <img src="https://img.shields.io/github/license/robalyx/rotector?style=flat-square&color=4a92e1">
   </a>
   <a href="https://github.com/robalyx/rotector/actions/workflows/ci.yml">
