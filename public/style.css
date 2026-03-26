@@ -1,38 +1,125 @@
 :root {
-    --primary: #2563eb;
-    --bg: #f8fafc;
-    --card: #ffffff;
+    --bg: #050508; 
+    --card-bg: rgba(12, 12, 16, 0.7);
+    --accent: #38bdf8; 
+    --text: #fafafa;
+    --text-dim: #94a3b8;
+    --border: rgba(30, 41, 59, 0.5); 
+    --glow: rgba(56, 189, 248, 0.12);
+    --input-bg: rgba(0, 0, 0, 0.3);
 }
 
-body { font-family: sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; }
-#app { width: 90%; max-width: 1000px; margin-top: 40px; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-.menu { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-.menu-btn { 
-    padding: 10px 20px; border: none; background: #ddd; 
-    border-radius: 6px; cursor: pointer; transition: 0.2s;
-}
-.menu-btn:hover { background: var(--primary); color: white; }
-
-#active-tool { 
-    background: var(--card); padding: 30px; 
-    border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-textarea, input { 
-    width: 100%; min-height: 150px; padding: 12px; 
-    border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box;
-    font-family: monospace; font-size: 14px;
+#bg-canvas {
+    position: fixed;
+    top: 0; left: 0; z-index: -1;
+    width: 100%; height: 100%;
+    opacity: 0.25;
 }
 
-.actions { margin: 15px 0; display: flex; gap: 10px; }
-button { 
-    padding: 10px 25px; background: var(--primary); color: white; 
-    border: none; border-radius: 6px; cursor: pointer; 
+header { padding: 4rem 10% 2rem; text-align: center; }
+
+.badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    display: inline-block;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
-#output { 
-    background: #1e293b; color: #f8fafc; padding: 15px; 
-    border-radius: 8px; overflow-x: auto; min-height: 50px;
-    white-space: pre-wrap; word-break: break-all;
+h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 8vw, 4rem); letter-spacing: -2px; }
+.gradient-text { background: linear-gradient(to right, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+#tool-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5% 5rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+}
+
+.menu { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.menu-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 1rem 1.5rem;
+    border-radius: 14px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.menu-btn.active {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(56, 189, 248, 0.05);
+    box-shadow: 0 0 15px var(--glow);
+}
+
+.workspace {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+}
+
+textarea, input {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    color: var(--text);
+    font-family: monospace;
+    margin-bottom: 1rem;
+    outline: none;
+}
+
+.btn-action {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+#output {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: #10b981;
+    font-family: monospace;
+    white-space: pre-wrap;
+    margin-top: 1rem;
+}
+
+@media (max-width: 850px) {
+    #tool-container { grid-template-columns: 1fr; }
+    .menu { flex-direction: row; overflow-x: auto; }
 }
