@@ -33,7 +33,7 @@ const tools = {
 const container = document.getElementById('tool-container');
 const outputHeader = '<h3>Output</h3><pre id="output"></pre>';
 
-// Initialize Sidebar/Menu
+// sidebar
 function init() {
     let menuHtml = '<div class="menu">';
     for (const key in tools) {
