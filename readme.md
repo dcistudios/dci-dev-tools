@@ -16,11 +16,5 @@
 * **Runtime:** Docker / NVMe-optimized images
 
 ## 📦 Deployment
-This project is Docker-ready and optimized for **Coolify** or standard VPS environments.
-
-```bash
-# Build the image
-docker build -t dci-dev-tools .
-
-# Run the container
-docker run -p 3000:3000 dci-dev-tools
+This project is Docker-ready and optimized for **Coolify** or standard VPS 
+**Tutorial coming very soon.
