@@ -17,4 +17,4 @@
 
 ## 📦 Deployment
 This project is Docker-ready and optimized for **Coolify** or standard VPS 
-**Tutorial coming very soon.
+**Tutorial coming very soon.**
