@@ -1,14 +1,14 @@
 # 🛠️ DCI Dev Tools
 
 <p align="left">
-  <a href="https://github.com/dcistudios/dci-dev-tools/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/robalyx/rotector?style=flat-square&color=4a92e1">
+  <a href="https://github.com/dcistudios/dci-dev-tools/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/dcistudios/dci-dev-tools?style=flat-square&color=4a92e1">
   </a>
-  <a href="https://github.com/robalyx/rotector/actions/workflows/ci.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/robalyx/rotector/ci.yml?style=flat-square&color=4a92e1">
+  <a href="https://github.com/dcistudios/dci-dev-tools/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/dcistudios/dci-dev-tools/ci.yml?style=flat-square&color=4a92e1">
   </a>
-  <a href="https://github.com/robalyx/rotector/issues">
-    <img src="https://img.shields.io/github/issues/robalyx/rotector?style=flat-square&color=4a92e1">
+  <a href="https://github.com/dcistudios/dci-dev-tools/issues">
+    <img src="https://img.shields.io/github/issues/dcistudios/dci-dev-tools?style=flat-square&color=4a92e1">
   </a>
   <a href="CODE_OF_CONDUCT.md">
     <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4a92e1?style=flat-square">
